@@ -1,2 +1,2 @@
-HEllo World
+HEllo
 Hello dünyalı
