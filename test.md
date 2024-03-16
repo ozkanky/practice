@@ -1,2 +1,2 @@
 HEllo Worlds
-Hello dünyalı
+Hello marslı
