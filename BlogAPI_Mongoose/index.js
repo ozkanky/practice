@@ -34,6 +34,10 @@ app.use(
   })
 );
 /* ------------------------------------------------------- */
+//! Middlewares:
+// Filter, Search , Sort , Limit
+app.use(require('./src/middlewares/findSearchSortPage'))
+/* ------------------------------------------------------- */
 
 //! check logined user (sessionda bir kullanıcı varmı, olmuşsa veriler doğrumu)
 app.use(require("./src/middlewares/userControl"));
