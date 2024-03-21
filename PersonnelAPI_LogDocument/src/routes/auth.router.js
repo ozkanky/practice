@@ -18,7 +18,8 @@ const auth = require('../controllers/auth.controller')
 
 // Login/logout:
 router.post('/login', auth.login)
-router.all('/logout', auth.logout)
+// router.all('/logout', auth.logout)//,swagger all methodunu görmez
+router.get('/logout', auth.logout)
 
 /* ------------------------------------------------------- */
 module.exports = router

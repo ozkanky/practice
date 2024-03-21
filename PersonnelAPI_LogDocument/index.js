@@ -61,11 +61,26 @@ app.use(morgan('combined', {
 
 
 /* ------------------------------------------------------- */
-//Documantation
+//* Documantation
 // $ npm i swagger-autogen //,sistemimi tarayarak JSON dosyası ortaya çıkarak
 //   $ npm i swagger-ui-express //, JSON dosyası görele donusturecek
 //npm i redoc-express
+//? JSON
+app.use('/documents/json', (req, res) => {
+    res.sendFile('swagger.json', { root: '.' })
+})
 
+//? SWAGGER:
+const swaggerUi = require('swagger-ui-express')
+const swaggerJson = require('./swagger.json')
+app.use('/documents/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson, { swaggerOptions: { persistAuthorization: true } }))
+
+//? REDOC:
+const redoc = require('redoc-express')
+app.use('/documents/redoc', redoc({
+    title: 'PersonnelAPI',
+    specUrl: '/documents/json'
+}))
 
 /* ------------------------------------------------------- */
 // Middlewares:
@@ -121,6 +136,14 @@ app.all("/", (req, res) => {
     // session: req.session,
     // isLogin: req.isLogin,
     user: req.user,
+    api: {
+      documents: {
+        swagger: "http://127.0.0.1:8000/documents/swagger",
+        redoc: "http://127.0.0.1:8000/documents/redoc",
+        json: "http://127.0.0.1:8000/documents/json",
+      },
+      contact: "contact@clarusway.com",
+    },
   });
 });
 

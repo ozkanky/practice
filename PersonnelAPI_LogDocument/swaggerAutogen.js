@@ -83,8 +83,8 @@ const document = {
 	}
 };
 
-const routes = ['./index.js']
-const outputFile = './swagger.json'
+const routes = ['./index.js']//, sisemimi index.js tn basla
+const outputFile = './swagger.json'//,dosyasini olustur
 
 // Create JSON file:
 swaggerAutogen(outputFile, routes, document)
