@@ -61,6 +61,13 @@ app.use(morgan('combined', {
 
 
 /* ------------------------------------------------------- */
+//Documantation
+// $ npm i swagger-autogen //,sistemimi tarayarak JSON dosyası ortaya çıkarak
+//   $ npm i swagger-ui-express //, JSON dosyası görele donusturecek
+//npm i redoc-express
+
+
+/* ------------------------------------------------------- */
 // Middlewares:
 
 // Accept JSON:
