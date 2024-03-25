@@ -65,11 +65,14 @@ app.all("/", (req, res) => {
   });
 });
 
-//departments
-app.use("/departments", require("./src/routes/department.router"));
+// //departments
+// app.use("/departments", require("./src/routes/department.router"));
 
-//personnels
-app.use("/personnels", require("./src/routes/personnel.router"));
+// //personnels
+// app.use("/personnels", require("./src/routes/personnel.router"));
+
+//app.use yerine routerları tek bir dosyadan  çağırmak
+app.use(require('./src/routes/index'))
 
 /* ------------------------------------------------------- */
 
