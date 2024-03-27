@@ -16,7 +16,7 @@ module.exports = {
     if (username && password) {
       //, findOne, passwordu modeldeki set metodundaki encrypt i kullanarak db'de filtreleme yapar
       const user = await Personnel.findOne({ username, password });
-      if (user) {
+      if (user && user.isActive) {
         /*SESSION*
 
         // Set Session:
