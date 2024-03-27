@@ -76,17 +76,19 @@ module.exports = {
     //,logut yaparken token silinecek
 
     //?1. YONTEM
+    //, Her kullanıcı için sadece 1 adet token var ise (tüm cihazlardan çıkış yap):
 
-    // await Token.deleteOne({userId:req.user.id})
+    //const deleted= await Token.deleteOne({userId:req.user.id})
 
     //? 2.YONTEM
-      //,her  kullanıcıya bir token vermek istersek
+    //,Her kullanıcı için 1'den fazla token var ise (çoklu cihaz):
     const auth = req.headers?.authorization || null; // Token ...tokenKey...
     const tokenKey = auth ? auth.split(" ") : null; // ['Token', '...tokenKey...']
 
+    let deleted = null;
+
     if (tokenKey && tokenKey[0] == "Token") {
-      const tokenData = await Token.deleteOne({ token: tokenKey[1] })
-     
+      deleted = await Token.deleteOne({ token: tokenKey[1] });
     }
 
     /*TOKEN*/
@@ -94,6 +96,7 @@ module.exports = {
       error: false,
       // message: "Logout: Sessions Deleted.",
       message: "Logout: Token Deleted.",
+      deleted,
     });
   },
 };
