@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     EXPRESS - Personnel API
 ------------------------------------------------------- */
@@ -8,37 +8,40 @@
     $ npm i jsonwebtoken
 */
 
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
 
 /* ------------------------------------------------------- */
 // Required Modules:
 
 // envVariables to process.env:
-require('dotenv').config()
-const PORT = process.env?.PORT || 8000
+require("dotenv").config();
+const PORT = process.env?.PORT || 8000;
 
 // asyncErrors to errorHandler:
-require('express-async-errors')
+require("express-async-errors");
 
 /* ------------------------------------------------------- */
 // Configrations:
 
 // Connect to DB:
-const { dbConnection } = require('./src/configs/dbConnection')
-dbConnection()
+const { dbConnection } = require("./src/configs/dbConnection");
+dbConnection();
 
 /* ------------------------------------------------------- */
 // Middlewares:
 
 // Accept JSON:
-app.use(express.json())
+app.use(express.json());
 
 // SessionsCookies:
-app.use(require('cookie-session')({ secret: process.env.SECRET_KEY }))
+app.use(require("cookie-session")({ secret: process.env.SECRET_KEY }));
 
 // res.getModelList():
-app.use(require('./src/middlewares/findSearchSortPage'))
+app.use(require("./src/middlewares/findSearchSortPage"));
+
+/* ------------------------------------------------------- *
+// Authontication : (sessionCookies )
 
 // Login/Logout Control Middleware
 app.use(async (req, res, next) => {
@@ -62,33 +65,37 @@ app.use(async (req, res, next) => {
 })
 
 /* ------------------------------------------------------- */
+// Authontication : (Simple Token)
+app.use(require('./src/middlewares/authentication'))
+/* ------------------------------------------------------- */
 // Routes:
 
 // HomePath:
-app.all('/', (req, res) => {
-    res.send({
-        error: false,
-        message: 'Welcome to PERSONNEL API',
-        session: req.session,
-        isLogin: req.isLogin
-    })
-})
+app.all("/", (req, res) => {
+  res.send({
+    error: false,
+    message: "Welcome to PERSONNEL API",
+    session: req.session,
+    isLogin: req.isLogin,
+    user:req.user
+  });
+});
 
 // // /departments
 // app.use('/departments', require('./src/routes/department.router'))
 // // /personnels
 // app.use('/personnels', require('./src/routes/personnel.router'))
 
-//, router klasörü içerisindeki index.js 
+//, router klasörü içerisindeki index.js
 
-app.use(require('./src/routes'))
+app.use(require("./src/routes"));
 /* ------------------------------------------------------- */
 
 // errorHandler:
-app.use(require('./src/middlewares/errorHandler'))
+app.use(require("./src/middlewares/errorHandler"));
 
 // RUN SERVER:
-app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT))
+app.listen(PORT, () => console.log("http://127.0.0.1:" + PORT));
 
 /* ------------------------------------------------------- */
 // Syncronization (must be in commentLine):

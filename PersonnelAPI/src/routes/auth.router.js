@@ -5,21 +5,21 @@
 const router = require("express").Router();
 /* ------------------------------------------------------- */
 
-const token = require("../controllers/token.controller");
+/* ------------------------------------------------------- *
+{
+    "username": "testF0",
+    "password": "1234"
+}
+/* ------------------------------------------------------- */
 
-// URL: /tokens
+const personnel = require("../controllers/auth.controller");
 
-router
-  .route("/")
-  .get(token.list)
-  .post( token.create);
+// URL: /auth
 
-router
-  .route("/:id")
-  .get(token.read)
-  .put( token.update)
-  .patch(token.update)
-  .delete( token.delete);
+// Login/logout:
+router.post("/login", personnel.login);
+router.all("/logout", personnel.logout);
+
 
 
 /* ------------------------------------------------------- */
