@@ -74,11 +74,14 @@ app.all('/', (req, res) => {
     })
 })
 
-// /departments
-app.use('/departments', require('./src/routes/department.router'))
-// /personnels
-app.use('/personnels', require('./src/routes/personnel.router'))
+// // /departments
+// app.use('/departments', require('./src/routes/department.router'))
+// // /personnels
+// app.use('/personnels', require('./src/routes/personnel.router'))
 
+//, router klasörü içerisindeki index.js 
+
+app.use(require('./src/routes'))
 /* ------------------------------------------------------- */
 
 // errorHandler:
