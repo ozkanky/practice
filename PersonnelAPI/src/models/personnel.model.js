@@ -13,6 +13,7 @@ const PersonnelSchema = new mongoose.Schema(
       ref: "Department",
       required: true,
     },
+
     username: {
       type: String,
       trim: true,
@@ -69,10 +70,12 @@ const PersonnelSchema = new mongoose.Schema(
       trim: true,
       default: null,
     },
-    isActvive: {
+
+    isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
+
     isAdmin: {
       type: Boolean,
       default: false,
@@ -92,4 +95,4 @@ const PersonnelSchema = new mongoose.Schema(
 );
 
 /* ------------------------------------------------------- */
-module.exports=mongoose.model('Personnle',PersonnelSchema)
+module.exports = mongoose.model("Personnel", PersonnelSchema);
