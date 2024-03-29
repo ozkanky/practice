@@ -2,7 +2,7 @@
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
-// Middleware: permissions
+//! Middleware: permissions
 
 module.exports = {
   isLogin: (req, res, next) => {
@@ -24,20 +24,34 @@ module.exports = {
       throw new Error("NoPermission: You must login and to be Admin.");
     }
   },
-  isLead: (req, res, next) => {
+  isAdminOrLead: (req, res, next) => {
     const departmentId = req.params?.id; //,isLead in oldugu byerde departmentId de gelmeli
 
     if (
       req.user && //,req.user giriş yapmak zorunda
-        req.user.isActive && //,req.user isActive olmak zorunda
-        (req.user.isAdmin|| //,req.user isAdmin olmak zorunda,değilse devamındaki sorgu
-     ( req.user.isLead && //,req.user isLead olmak zorunda
-        req.user.departmentId == departmentId))
+      req.user.isActive && //,req.user isActive olmak zorunda
+      (req.user.isAdmin || //,req.user isAdmin olmak zorunda,değilse devamındaki sorgu
+        (req.user.isLead && //,req.user isLead olmak zorunda
+          req.user.departmentId == departmentId))
     ) {
       next();
     } else {
       res.errorStatusCode = 403;
       throw new Error("NoPermission: You must login and to be Admin.");
+    }
+  },
+  isAdminOwn: (req, res, next) => { //, personel kendi kaydını yönetebiliyor
+    const personnelId = req.params?.id;
+
+    if (
+      req.user &&
+      req.user.isActive &&
+      (req.user.isAdmin || req.user._id == personnelId)
+    ) {
+      next();
+    } else {
+      res.errorStatusCode = 403;
+      throw new Error("NoPermission: You must login and to be Admin or Record Owner.");
     }
   },
 };

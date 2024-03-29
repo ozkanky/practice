@@ -12,13 +12,13 @@ const router = require("express").Router();
 }
 /* ------------------------------------------------------- */
 
-const personnel = require("../controllers/auth.controller");
+const auth = require("../controllers/auth.controller");
 
 // URL: /auth
 
 // Login/logout:
-router.post("/login", personnel.login);
-router.all("/logout", personnel.logout);
+router.post("/login", auth.login);
+router.all("/logout", auth.logout);
 
 
 

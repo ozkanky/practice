@@ -25,6 +25,7 @@ module.exports=async (req,res,next)=>{
      "userId"
    ); //,populate('userId') metodu, tokenin sahibi olan kullanıcı verisini de almak için kullanılır.
  if (tokenData) req.user = tokenData.userId // Personnel Data
+ //, eger token basarılıysa req.user user datası olacak
         // console.log(req.user)
     }
   next()

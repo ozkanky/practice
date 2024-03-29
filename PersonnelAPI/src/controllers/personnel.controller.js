@@ -55,6 +55,11 @@ module.exports = {
             const { departmentId } = await Personnel.findOne({ _id: req.params.id }, { departmentId: 1 })
             await Personnel.updateMany({ departmentId, isLead: true }, { isLead: false })
         }
+        //, isAdmin değilse
+        if(!req.user.isAdmin){ //, kendi kaydını Admin güncelleyemez
+            req.body.isAdmin=false
+            delete req.body.salary //,ne göderirsen gönder gelen değeri geçersiz yap
+        }
 
         const data = await Personnel.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
 
