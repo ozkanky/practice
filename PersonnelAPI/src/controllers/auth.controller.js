@@ -8,9 +8,30 @@ const Token = require("../models/token.model");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 module.exports = {
+
+
   // LOGIN & LOGOUT
 
   login: async (req, res) => {
+    //, bir swagger a gruplama yapmak için komut #swagger.tags
+    //, bir swagger a özet yapmak için komut #swagger.summary
+    //, bir swagger a özet yapmak için komut #swagger.description
+
+    /*
+ 
+#swagger.tags['Authentication']
+#swagger.summary='Login
+#swagger.description = 'Login user  name and password
+#swagger.parameters['body]={
+  in:'body',
+  required:'true, 
+  required: 'true',
+            schema: {
+                username: 'testF0',
+                password:'1234'
+            }
+}
+*/
     const { username, password } = req.body;
 
     if (username && password) {
@@ -64,6 +85,13 @@ module.exports = {
   },
 
   logout: async (req, res) => {
+    /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'Logout'
+            #swagger.description = 'Delete Token'
+        */
+
+            
     /*SESSION*
 
     // Set session to null:

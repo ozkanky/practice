@@ -78,17 +78,32 @@ app.use(morgan('combined', {
 // $ npm i swagger-ui-express //,JSON dosyasını görsele dönüşütrür
 // $ npm i redoc-express
 
-//? SWAGGER
-const swaggerUi = require("swagger-ui-express");
+
+//? JSON
+
 const swaggerJson = require("./swagger.json");
 
-app.use(
-  "/documents/swagger", //, swagger dökümanını burakadi URL den yayınla
+app.use('/documents/json',(req,res)=>{  //, swagger dökümanını burakadi URL den yayınla
+  res.sendFile("swagger.json", { root: "." });
+  //, "sendFile" dosya içeriğini ekrana basar
+})
+
+//? SWAGGER
+const swaggerUi = require("swagger-ui-express");
+
+app.use('/documents/json', //, swagger dökümanını burakadi URL den yayınla
   swaggerUi.serve, //,swagger ı başlat
   swaggerUi.setup(swaggerJson, {
     swaggerOptions: { persistAuthorization: true }, //,token çalıştırma ayarı
   })
 );
+
+//? REDOC:
+const redoc = require('redoc-express')
+app.use('/documents/redoc', redoc({
+    title: 'PersonnelAPI',
+    specUrl: '/documents/json'
+}))
 
 /* ------------------------------------------------------- */
 // Middlewares:
@@ -143,6 +158,14 @@ app.all("/", (req, res) => {
     session: req.session,
     isLogin: req.isLogin,
     user: req.user,
+    api: {
+      documents: {
+        swagger: "http://127.0.0.1:8000/documents/swagger",
+        redoc: "http://127.0.0.1:8000/documents/redoc",
+        json: "http://127.0.0.1:8000/documents/json",
+      },
+      contact: "contact@clarusway.com",
+    },
   });
 });
 
