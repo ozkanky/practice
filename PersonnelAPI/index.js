@@ -29,6 +29,25 @@ const { dbConnection } = require("./src/configs/dbConnection");
 dbConnection();
 
 /* ------------------------------------------------------- */
+//?Morgan log kaydı tutmaya yarayan middleware' dir
+//https://expressjs.com/en/resources/middleware/morgan.html
+//https://github.com/expressjs/morgan
+// $ npm i morgan
+
+const morgan = require('morgan')
+
+// app.use(morgan('combined'))
+// app.use(morgan('common'))
+// app.use(morgan('short'))
+app.use(
+  morgan(
+    'IP=:remote-addr |:date[clf]] | METHOD=:method | URL=:url | STATUS=:status| LENGTH=:res[content-length] | REF=:referrer | AGENT=:user-agent'
+  )
+);
+
+
+
+/* ------------------------------------------------------- */
 // Middlewares:
 
 // Accept JSON:
