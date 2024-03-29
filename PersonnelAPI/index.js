@@ -75,8 +75,21 @@ app.use(morgan('combined', {
 
 // https://swagger-autogen.github.io/docs/
 // $ npm i swagger-autogen //, benim isstemimi tarar ve otomatik olarak  JSON dosyası olusturur
-  // $ npm i swagger-ui-express //,JSON dosyasını görsele dönüşütrür
-  // $ npm i redoc-express
+// $ npm i swagger-ui-express //,JSON dosyasını görsele dönüşütrür
+// $ npm i redoc-express
+
+//? SWAGGER
+const swaggerUi = require("swagger-ui-express");
+const swaggerJson = require("./swagger.json");
+
+app.use(
+  "/documents/swagger", //, swagger dökümanını burakadi URL den yayınla
+  swaggerUi.serve, //,swagger ı başlat
+  swaggerUi.setup(swaggerJson, {
+    swaggerOptions: { persistAuthorization: true }, //,token çalıştırma ayarı
+  })
+);
+
 /* ------------------------------------------------------- */
 // Middlewares:
 
@@ -84,7 +97,7 @@ app.use(morgan('combined', {
 app.use(express.json());
 
 // Logging :
-app.use(require('./src/middlewares/logging'))
+app.use(require("./src/middlewares/logging"));
 
 // SessionsCookies:
 app.use(require("cookie-session")({ secret: process.env.SECRET_KEY }));
