@@ -1,10 +1,10 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     EXPRESS - Personnel API
 ------------------------------------------------------- */
-require('dotenv').config()
-const HOST = process.env?.HOST || '127.0.0.1'
-const PORT = process.env?.PORT || 8000
+require("dotenv").config();
+const HOST = process.env?.HOST || "127.0.0.1";
+const PORT = process.env?.PORT || 8000;
 /* ------------------------------------------------------- */
 // npm i swagger-autogen
 // https://swagger-autogen.github.io/docs/
@@ -21,70 +21,73 @@ const options = {
 /* ------------------------------------------------------- */
 
 // const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0', language: 'tr-tr' })
-const swaggerAutogen = require('swagger-autogen')()
-const packageJson = require('./package.json')
+const swaggerAutogen = require("swagger-autogen")();
+const packageJson = require("./package.json");
 
-const document = {
-	// info: {
-	// 	version: "1.0.0",
-	// 	title: "Personnel API",
-	// 	description: "Personnel Management API Service",
-	// 	termsOfService: "http://www.clarusway.com",
-	// 	contact: { name: "Clarusway", email: "qadir@clarusway.com" },
-	// 	license: { name: "BSD License", },
-	// },
-	info: {
-		version: packageJson.version,
-		title: packageJson.title,
-		description: packageJson.description,
-		termsOfService: "http://www.clarusway.com",
-		contact: { name: packageJson.author, email: "qadir@clarusway.com" },
-		license: { name: packageJson.license, },
-	},
-	host: `${HOST}:${PORT}`,
-	basePath: '/',
-	schemes: ['http', 'https'],
-	// SimpleToken Settings:
-	securityDefinitions: {
-		Token: {
-			type: 'apiKey',
-			in: 'header',
-			name: 'Authorization',
-			description: 'Simple Token Authentication * Example: <b>Token ...tokenKey...</b>'
-		},
-	},
-	security: [{ Token: [] }],
-	definitions: {
-		"/auth/login": {
-			username: {
-				type: "String",
-				required: true
-			},
-			password: {
-				type: "String",
-				required: true
-			},
-		},
-		"/auth/refresh": {
-			"token.refresh": {
-				description: "{ token: { refresh: ... } }",
-				type: "String",
-				required: true
-			}
-		},
-		// "Department": {
-		// 	"name": {
-		// 		type: "ObjectId",
-		// 		required: true
-		// 	}
-		// },
-		"Department": require('./src/models/department.model').schema.obj,
-		"Personnel": require('./src/models/personnel.model').schema.obj,
-	}
+const document = { //,autogen ile ilgili ön tanımlar/ayar yapılacak yer
+  // info: {
+  // 	version: "1.0.0",
+  // 	title: "Personnel API",
+  // 	description: "Personnel Management API Service",
+  // 	termsOfService: "http://www.clarusway.com",
+  // 	contact: { name: "Clarusway", email: "qadir@clarusway.com" },
+  // 	license: { name: "BSD License", },
+  // },
+  info: {
+    version: packageJson.version,
+    title: packageJson.title,
+    description: packageJson.description,
+    termsOfService: "http://www.clarusway.com",
+    contact: { name: packageJson.author, email: "qadir@clarusway.com" },
+    license: { name: packageJson.license },
+  },
+  host: `${HOST}:${PORT}`,
+  basePath: "/",
+  schemes: ["http", "https"],
+  // SimpleToken Settings:
+  securityDefinitions: {
+    Token: {
+      type: "apiKey",
+      in: "header",
+      name: "Authorization",
+      description:
+        "Simple Token Authentication * Example: <b>Token ...tokenKey...</b>",
+    },
+  },
+  security: [{ Token: [] }],
+  definitions: {
+    "/auth/login": {
+      username: {
+        type: "String",
+        required: true,
+      },
+      password: {
+        type: "String",
+        required: true,
+      },
+    },
+    "/auth/refresh": {
+      "token.refresh": {
+        description: "{ token: { refresh: ... } }",
+        type: "String",
+        required: true,
+      },
+    },
+    // "Department": {
+    // 	"name": {
+    // 		type: "ObjectId",
+    // 		required: true
+    // 	}
+    // },
+    Department: require("./src/models/department.model").schema.obj,
+    Personnel: require("./src/models/personnel.model").schema.obj,
+  },
 };
 
-const routes = ['./index.js']
-const outputFile = './swagger.json'
+const routes = ["./index.js"]; //,route taramasına index.js den başla
+const outputFile = "./swagger.json"; //,nihai olarak yazacagın JSON dosyası
 
 // Create JSON file:
-swaggerAutogen(outputFile, routes, document)
+swaggerAutogen(outputFile, routes, document); //,çalıştır
+
+//! terminalde "node swaggerAutogen.js"yazarak çalıştırıyoruz ve "swagger.json" dosyasını ana dizinde olsturdu
