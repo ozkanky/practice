@@ -61,7 +61,8 @@ module.exports={
 res.status(202).send({
        error: false,
          data,
-         new:await User.findOne({ _id: req.params.userId }) //,kayıt güncellendikten sonra güncel kaydı getir
+ new: await User.findOne({ _id: req.params.id })
+ //,kayıt güncellendikten sonra güncel kaydı getir
 
 })
 },
