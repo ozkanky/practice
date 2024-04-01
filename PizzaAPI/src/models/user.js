@@ -26,6 +26,8 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       unique: true,
       required: true,
+      validate:(email)=>email.includes('@') && email.includes('.') //, gelen emailin '@' ve '.' olup olmadıgını kontrol eder,
+      //,=> validate -> create yaparken otomatik calisir -> update yaparken de calisması icin runValidator ayarı contorllere eklenir
     },
     isActive: {
       type: Boolean,
