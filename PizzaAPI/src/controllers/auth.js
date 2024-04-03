@@ -27,7 +27,6 @@ module.exports = {
     const { username, email, password } = req.body;
 
     if ((username || email) && password) {
-
       const user = await User.findOne({ $or: [{ username }, { email }] }); //, $or: [{ username }, { email }] usename veya email varmı
 
       if (user && user.password == passwordEncrypt(password)) {
