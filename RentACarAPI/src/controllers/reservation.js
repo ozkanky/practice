@@ -44,10 +44,17 @@ module.exports = {
             }
         */
 
-    /* EĞER login olan kullanıcı admin değilse post işleminde yetkileri false  
-        req.body.isStaff=false
-        req.body.isAdmin=false
-        */
+    //,  admin /staff degilse veya userId gonderilmemisse req.user dan al
+    if ((!req.user.isAdmin && !req.user.isStaff) || !req.body?.userId) {
+
+      //,admin ve staff değilse ,yani normal kulanıcı userId gönderse de göndermese de sadece kendi adına reservation oluşturabilir
+      req.body.userId = req.user._id; //,
+    }
+
+    //, createdId ve updatedId verisini req.user'dan al:
+    req.body.createdId = req.user._id;
+    req.body.updatedId = req.user._id;
+
     const data = await Reservation.create(req.body);
 
     res.status(201).send({
@@ -83,6 +90,14 @@ module.exports = {
                 }
             }
         */
+    //,  Admin değilse rezervasyona ait userId değiştirilemez:
+
+    if (!req.user.isAdmin) {
+      delete req.body.userId;
+    }
+
+    //,  updatedId verisini req.user'dan al:
+    req.body.updatedId = req.user._id;
 
     if (!req.Reservation.isAdmin) req.params.id = req.Reservation._id;
     const data = await Reservation.updateOne({ _id: req.params.id }, req.body, {

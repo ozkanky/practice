@@ -60,7 +60,7 @@ const CarSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    pericePerDay:{
+    pricePerDay:{
         type:Number,
         required:true
         
@@ -74,7 +74,7 @@ const CarSchema = new mongoose.Schema({
         type:Boolean,
         default:true
     },
-    cretaedId:{//,bu kaydi olusturan user
+    createdId:{//,bu kaydi olusturan user
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true

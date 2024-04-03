@@ -48,6 +48,11 @@ module.exports = {
         req.body.isStaff=false
         req.body.isAdmin=false
         */
+
+    //, createdId ve updatedId verisini req.user'dan al:
+    req.body.createdId = req.user._id;
+    req.body.updatedId = req.user._id;
+
     const data = await Car.create(req.body);
 
     res.status(201).send({
@@ -84,7 +89,9 @@ module.exports = {
             }
         */
 
-   
+    //,  updatedId verisini req.user'dan al:
+    req.body.updatedId = req.user._id;
+
     if (!req.Car.isAdmin) req.params.id = req.Car._id;
     const data = await Car.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
