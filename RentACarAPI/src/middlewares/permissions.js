@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
@@ -6,7 +6,9 @@
 
 module.exports = {
   isLogin: (req, res, next) => {
-    if (req.user) {
+    // return next()
+
+    if (req.user && req.user.isActive) {
       next();
     } else {
       res.errorStatusCode = 403;
@@ -15,15 +17,24 @@ module.exports = {
   },
 
   isAdmin: (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
+    // return next()
+
+    if (req.user && req.user.isActive && req.user.isAdmin) {
       next();
     } else {
       res.errorStatusCode = 403;
       throw new Error("NoPermission: You must login and to be Admin.");
     }
   },
-  isStaffOrisAdmin: (req, res, next) => {
-    if (req.user && (req.user.isAdmin || req.user.isStaff)) {
+  isStaff: (req, res, next) => {
+    // return next()
+
+    if (
+      req.user &&
+      req.user.isActive &&
+      (req.user.isAdmin || req.user.isStaff)
+    ) {
+      //,giris yapmasi ve isActive olmasi yeterli degil, isAdmin veya isStaff da olmali
       next();
     } else {
       res.errorStatusCode = 403;
