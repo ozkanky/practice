@@ -25,8 +25,7 @@ const ReservationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId, // ForeignKey, RelationalID
       ref: "User",
       required: true,
-      index: true, //, daha hızlı arama için
-      unique: true,
+      
     },
     carId: {
       type: mongoose.Schema.Types.ObjectId, // ForeignKey, RelationalID

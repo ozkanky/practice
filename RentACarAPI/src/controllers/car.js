@@ -95,7 +95,7 @@ module.exports = {
     //,  updatedId verisini req.user'dan al:
     req.body.updatedId = req.user._id;
 
-    if (!req.Car.isAdmin) req.params.id = req.Car._id;
+   
     const data = await Car.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
