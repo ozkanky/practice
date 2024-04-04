@@ -67,7 +67,7 @@ module.exports = {
         */
 
     //, Baska bir user ı goremsini engelle :
-    let customFiler = {};
+    let customFiler = { _id: req.user.id };
     if (!req.user.isAdmin && !req.user.isStaff) {
       //,admin ve staff değilse sadece kendi kaydını okur
       customFiler = { _id: req.user.id }; //, sadece kendi kaydını okur ,id si req.user.id olan kaydı okur
@@ -107,7 +107,7 @@ module.exports = {
       delete req.body.isAdmin;
     }
     //, Baska bir user ı guncellemesini engelle :
-    let customFiler = {};
+    let customFiler = { _id: req.user.id };
     if (!req.user.isAdmin && !req.user.isStaff) {
       customFiler = { _id: req.user.id };
     }

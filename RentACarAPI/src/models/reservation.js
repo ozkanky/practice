@@ -45,7 +45,7 @@ const ReservationSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    cretaedId: {
+    createdId: {
       //,bu kaydi olusturan user
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

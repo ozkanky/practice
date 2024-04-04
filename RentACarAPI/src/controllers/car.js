@@ -22,11 +22,14 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Car);
+    //, Müsait olmayan aracları listelemey:
+    let customFiler = { isAvailable: true };
+
+    const data = await res.getModelList(Car, customFiler);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Car),
+      details: await res.getModelListDetails(Car, customFiler),
       data,
     });
   },
