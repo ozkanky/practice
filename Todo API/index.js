@@ -27,7 +27,17 @@ dbConnection();
 // Accept JSON : 
 app.use(express.json())
 
+/* ------------------------------------------------------- */
+// Routes :
 
+app.all('/',(req,res)=>{
+    res.send({
+        error:false,
+        message:'Welcome to TODO API',
+        
+    })
+})
+app.use(require('./src/routes/todo'))
 
 /* ------------------------------------------------------- */
 // Error Handler : 
@@ -36,4 +46,4 @@ app.use(require('./src/middlewares/errorHandler'))
 /* ------------------------------------------------------- */
 // RUN SERVER:
 
-app.listen(PORT, () => console.log("http:127.0.0.1:8000" + PORT));
+app.listen(PORT, () => console.log("http:127.0.0.1:" + PORT));
