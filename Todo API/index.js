@@ -24,8 +24,14 @@ dbConnection();
 /* ------------------------------------------------------- */
 // Middlewares : 
 
+// Accept JSON : 
+app.use(express.json())
 
 
+
+/* ------------------------------------------------------- */
+// Error Handler : 
+app.use(require('./src/middlewares/errorHandler'))
 
 /* ------------------------------------------------------- */
 // RUN SERVER:
