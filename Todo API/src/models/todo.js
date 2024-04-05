@@ -14,7 +14,7 @@ const priorities ={
 
 const TodoSchema = new mongoose.Schema(
   {
-    tittle: {
+    title: {
       type: String,
       trim: true,
       required: true,
