@@ -14,3 +14,8 @@ module.exports= (err,req,res,next)=>{
     body:err.body
   })
 }
+
+// module.exports = (err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).send({ error: true, message: err.message });
+// };

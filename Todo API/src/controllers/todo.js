@@ -23,28 +23,30 @@ module.exports = {
     });
   },
   read: async (req, res) => {
-    const data = await Todo.findOne({_id:req.params.id});
+    const data = await Todo.findOne({ _id: req.params.id });
     res.status(200).send({
       error: false,
       data,
     });
   },
   update: async (req, res) => {
-    const data = await Todo.updateOne({_id:req.params.id},req.body,{
-      runValidators:true
+    const data = await Todo.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
     });
-    
+    const updated = await Todo.findOne({ _id: req.params.id });
+
     res.status(202).send({
       error: false,
       data,
+      body:updated
     });
   },
   delete: async (req, res) => {
-    const data = await Todo.deleteOne({_id:req.params.id})
+    const data = await Todo.deleteOne({ _id: req.params.id });
 
-     res.status(data.deletedCount ? 204 : 404).send({
-       error: !data.deletedCount,
-       data,
-     });
+    res.status(data.deletedCount ? 204 : 404).send({
+      error: !data.deletedCount,
+      data,
+    });
   },
 };

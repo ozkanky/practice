@@ -8,11 +8,11 @@ const router = require("express").Router();
 const todo = require("../controllers/todo");
 /*------------------------------------------------------- */
 // URL/
-router.route("/").get(todo.list).post(todo.create);
+router.route("/todos").get(todo.list).post(todo.create);
 
 // URL/:id
 router
-  .route("/:id")
+  .route("/todos/:id")
   .get(todo.read)
   .put(todo.update)
   .patch(todo.update)
